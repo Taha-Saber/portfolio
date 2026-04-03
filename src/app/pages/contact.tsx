@@ -35,7 +35,7 @@ const Contact = () => {
         date: new Date().toISOString(),
       };
 
-      const userDocRef = doc(db, "users", "Abdallah_Alqiran");
+      const userDocRef = doc(db, "users", "Omniya_Abdelnasser");
       await updateDoc(userDocRef, {
         contactMessage: arrayUnion(newMessage),
       });

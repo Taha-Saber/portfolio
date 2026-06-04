@@ -36,7 +36,7 @@ const Contact = () => {
         date: new Date().toISOString(),
       };
 
-      const userDocRef = doc(db, "users", "Abdallah_Alqiran");
+      const userDocRef = doc(db, "users", import.meta.env.VITE_USER_ID);
       await updateDoc(userDocRef, {
         contactMessage: arrayUnion(newMessage),
       });

@@ -1,4 +1,4 @@
-import contactimg from '../images/see-CUiBe9gY.png';
+import contactimg from "../images/see-CUiBe9gY.png";
 import { Input } from "@/shared/components/ui/input";
 import { Textarea } from "@/shared/components/ui/textarea";
 import { Button } from "@/shared/components/ui/button";
@@ -17,7 +17,7 @@ const Contact = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); 
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -68,7 +68,7 @@ const Contact = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-[40vh] flex items-center justify-center bg-background">
         <p className="text-2xl font-semibold text-primary animate-pulse">Loading...</p>
       </div>
     );
@@ -76,21 +76,24 @@ const Contact = () => {
 
   return (
     <section id="contact" className="px-6 md:px-12 bg-background pt-16 pb-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-            Get in Touch
+          <h2 className="text-3xl md:text-[40px] font-bold text-foreground tracking-wide">
+            Contact me
           </h2>
-          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+          <p className="mt-4 text-base md:text-xl text-muted-foreground tracking-wide">
+            Cultivating Connections: Reach Out and Connect with Me
+          </p>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -98,51 +101,44 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="hidden lg:block relative"
           >
-            <div className="absolute -inset-4 bg-primary/10 rounded-full blur-3xl"></div>
+            <div className="absolute -inset-4 bg-primary/10 rounded-full blur-3xl" />
             <img
               src={contactimg}
               loading="lazy"
               alt="Contact"
-              className="relative w-full max-w-lg mx-auto rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
+              className="relative w-full max-w-md mx-auto rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
             />
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="relative group"
+            transition={{ delay: 0.15, duration: 0.6 }}
+            className="space-y-5"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="relative bg-card text-card-foreground shadow-2xl rounded-3xl p-8 md:p-12 border border-border/50 backdrop-blur-sm space-y-8">
-              <div className="space-y-4">
-                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground ml-1">Email Address</label>
-                <Input
-                  type="email"
-                  placeholder="name@example.com"
-                  className="w-full bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/20 rounded-xl px-6 py-7 text-lg font-medium transition-all"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                />
-              </div>
+            <Input
+              type="email"
+              placeholder="Email"
+              className="w-full bg-secondary/50 dark:bg-white/[0.04] border-transparent focus:border-primary focus:ring-primary/20 rounded-lg px-6 py-7 text-base font-medium transition-all placeholder:text-muted-foreground"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
 
-              <div className="space-y-4">
-                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground ml-1">Message</label>
-                <Textarea
-                  placeholder="How can I help you?"
-                  className="w-full bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/20 rounded-xl px-6 py-5 h-48 resize-none text-lg font-medium transition-all"
-                  onChange={(e) => setMessage(e.target.value)}
-                  value={message}
-                />
-              </div>
+            <Textarea
+              placeholder="Project Details..."
+              className="w-full bg-secondary/50 dark:bg-white/[0.04] border-transparent focus:border-primary focus:ring-primary/20 rounded-lg px-6 py-5 h-48 resize-none text-base font-medium transition-all placeholder:text-muted-foreground"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+            />
 
+            <div className="flex justify-end">
               <Button
-                className="w-full py-8 text-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-2xl shadow-xl transition-all duration-300 active:scale-[0.98]"
+                className="min-w-[127px] h-12 rounded-lg border-2 border-foreground/80 bg-transparent text-foreground font-bold hover:border-primary hover:text-primary hover:bg-transparent"
                 onClick={handleSubmit}
                 disabled={sending}
               >
-                {sending ? "Sending..." : "Send Message"}
+                {sending ? "Sending..." : "Send"}
               </Button>
             </div>
           </motion.div>

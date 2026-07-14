@@ -4,7 +4,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
   	extend: {
-		
+  		fontFamily: {
+  			sans: ['"Lato"', "ui-sans-serif", "system-ui", "sans-serif"],
+  			logo: ['"K2D"', '"Lato"', "sans-serif"],
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

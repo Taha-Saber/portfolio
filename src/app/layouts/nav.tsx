@@ -8,7 +8,10 @@ const Nav = () => {
   const [activeSection, setActiveSection] = useState("home");
   const { data } = useUserdata();
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, section: string) => {
+  const handleSmoothScroll = (
+    e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    section: string,
+  ) => {
     e.preventDefault();
     setActiveSection(section);
     const targetElement = document.getElementById(section);
@@ -18,85 +21,119 @@ const Nav = () => {
     }
   };
 
-  const sections = ["home", "projects", "skills", "courses", "contact"];
+  const sections = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About me" },
+    { id: "projects", label: "projects" },
+    { id: "skills", label: "Skills" },
+    { id: "courses", label: "courses" },
+    { id: "contact", label: "Contact me" },
+  ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5 dark:border-white/10 shadow-lg overflow-x-hidden">
-      <div className="w-full px-2 sm:px-4 md:px-6">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-background/90 backdrop-blur-md border-b border-white/5">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-20">
+        <div className="relative flex h-[72px] items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none"
+              className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:text-primary sm:hidden"
+              aria-label="Toggle menu"
             >
-              <span className="sr-only">Open main menu</span>
               {!mobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               )}
             </button>
+
+            <a
+              href="#home"
+              onClick={(e) => handleSmoothScroll(e, "home")}
+              className="font-logo text-logo-gradient text-2xl font-bold tracking-wide whitespace-nowrap"
+            >
+              {data?.userName?.split(" ")[0] || "LOGO"}
+            </a>
           </div>
 
-          <div className="flex flex-1 items-center justify-center sm:justify-start">
-            <div className="text-primary text-lg md:text-xl font-bold tracking-tight whitespace-nowrap">
-              {data?.userName || "..."}
-            </div>
-          </div>
-
-          <div className="hidden sm:block w-full">
-            <div className="flex justify-center flex-wrap gap-x-3 md:gap-x-6">
+          <div className="hidden sm:flex flex-1 items-center justify-center">
+            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
               {sections.map((section) => (
                 <a
-                  key={section}
-                  href={`#${section}`}
-                  onClick={(e) => handleSmoothScroll(e, section)}
-                  className={`capitalize px-3 md:px-4 py-2 text-sm md:text-base font-semibold transition-all duration-300 relative group/nav
-                    ${activeSection === section
-                      ? "text-primary"
-                      : "text-foreground/70 hover:text-primary"}`}
+                  key={section.id}
+                  href={`#${section.id}`}
+                  onClick={(e) => handleSmoothScroll(e, section.id)}
+                  className={`relative text-base tracking-wide transition-colors duration-300 ${
+                    activeSection === section.id
+                      ? "text-primary font-bold"
+                      : "text-muted-foreground font-medium hover:text-foreground"
+                  }`}
                 >
-                  {section}
-                  {activeSection === section && (
-                    <motion.div 
+                  {section.label}
+                  {activeSection === section.id && (
+                    <motion.div
                       layoutId="nav-underline"
-                      className="absolute bottom-0 left-0 w-full h-0.5 bg-primary shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                      className="absolute -bottom-1 left-0 h-0.5 w-full bg-primary"
                     />
-                  )}
-                  {activeSection !== section && (
-                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary/40 transition-all duration-300 group-hover/nav:w-full" />
                   )}
                 </a>
               ))}
             </div>
           </div>
 
-          <div className="ml-2 md:ml-4">
-            <ThemeToggler />
+          <div className="flex items-center gap-3 shrink-0">
+            <ThemeToggler className="hidden md:block" />
+            <button
+              onClick={(e) => handleSmoothScroll(e, "contact")}
+              className="btn-primary-gradient rounded-lg px-5 py-2.5 text-sm font-bold text-white tracking-wide transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Hire Me
+            </button>
           </div>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="sm:hidden px-4 py-2 w-full overflow-x-hidden">
+        <div className="sm:hidden border-t border-border/40 px-4 py-3 space-y-1 bg-background/95">
           {sections.map((section) => (
             <a
-              key={section}
-              href={`#${section}`}
-              onClick={(e) => handleSmoothScroll(e, section)}
-              className={`block capitalize px-3 py-2 text-base font-medium border-b-2
-                transition-all duration-300 
-                ${activeSection === section
-                  ? "border-[#006a6a] text-[#006a6a]"
-                  : "border-transparent hover:border-[#006a6a] hover:text-[#006a6a]"}`}
+              key={section.id}
+              href={`#${section.id}`}
+              onClick={(e) => handleSmoothScroll(e, section.id)}
+              className={`block rounded-lg px-3 py-2.5 text-base font-medium transition-colors ${
+                activeSection === section.id
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+              }`}
             >
-              {section}
+              {section.label}
             </a>
           ))}
+          <div className="pt-2 px-1">
+            <ThemeToggler />
+          </div>
         </div>
       )}
     </nav>

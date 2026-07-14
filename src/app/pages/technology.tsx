@@ -28,10 +28,10 @@ const Technology = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+          <h2 className="text-3xl md:text-[40px] font-bold text-foreground tracking-wide">
             Technologies & Tools
           </h2>
-          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full" />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -44,7 +44,7 @@ const Technology = () => {
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="group relative h-full flex flex-col"
             >
-              <div className="relative p-8 rounded-2xl bg-card border border-border/50 group-hover:border-primary/40 group-hover:bg-primary/5 group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.15)] transition-all duration-300 shadow-sm h-full flex flex-col">
+              <div className="relative p-8 rounded-3xl section-card group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-300 h-full flex flex-col">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 rounded-lg bg-primary/10 text-primary">
                     <Settings size={22} />

@@ -1,16 +1,15 @@
-import img2 from "../images/download (2).jpeg";
-import img3 from "../images/download (1).png";
-import img1 from "../images/download (2).png"
-import img4 from "../images/download.png";
-import img5 from "../images/download (3).jpeg"
-import img6 from "../images/download (3).png"
-import img7 from "../images/notion.png"
-import defaultAvatar from "../images/see-CUiBe9gY.png";  
-import { Button } from "@/shared/components/ui/button";
-import { Download } from "lucide-react";
 import { useUserdata } from "@/shared/components/firestore";
+import { Button } from "@/shared/components/ui/button";
 import { motion } from "framer-motion";
-
+import img3 from "../images/download (1).png";
+import img2 from "../images/download (2).jpeg";
+import img1 from "../images/download (2).png";
+import img5 from "../images/download (3).jpeg";
+import img6 from "../images/download (3).png";
+import img4 from "../images/download.png";
+import heroGlow from "../images/figma/hero-glow.png";
+import img7 from "../images/notion.png";
+import defaultAvatar from "../images/see-CUiBe9gY.png";
 
 const Home = () => {
   const image: Record<string, string> = {
@@ -28,66 +27,71 @@ const Home = () => {
   if (isLoading)
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <p className="animate-pulse text-2xl font-semibold text-primary">Loading...</p>
+        <p className="animate-pulse text-2xl font-semibold text-primary">
+          Loading...
+        </p>
       </div>
     );
 
   if (error)
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <p className="animate-pulse text-2xl font-semibold text-destructive">Error occurred!</p>
+        <p className="animate-pulse text-2xl font-semibold text-destructive">
+          Error occurred!
+        </p>
       </div>
     );
 
+  const experienceCount = data?.experiences?.length ?? 0;
+  const projectCount = data?.projects?.length ?? 0;
+  const skillsCount = data?.skills?.length ?? 0;
+
+  const stats = [
+    { value: experienceCount, label: "Experiences" },
+    { value: projectCount, label: "Project done" },
+    { value: skillsCount, label: "Skills" },
+  ].filter((s) => s.value > 0);
+
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="bg-background w-full pt-20 pb-4">
-      <div
-        id="home"
-        className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-24 lg:gap-32 mx-auto max-w-7xl px-6 md:px-12"
-      >
-        {/* Left Column: Profile Image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative group shrink-0"
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-          <img
-            src={data?.userImage ?? defaultAvatar}
-            loading="eager"
-            width={320}
-            height={320}
-            alt="Profile"
-            className="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-background shadow-2xl"
-          />
-        </motion.div>
+    <section
+      id="home"
+      className="relative w-full overflow-hidden bg-background pt-28 pb-16 md:pt-32 md:pb-20"
+    >
+      <img
+        src={heroGlow}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute left-0 top-24 w-[min(100%,640px)] opacity-70 md:opacity-90"
+      />
 
-        {/* Right Column: Content */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left flex-grow">
-          <motion.h1 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-4xl md:text-6xl font-extrabold text-foreground tracking-tight"
-          >
-            {data?.userName}
-          </motion.h1>
-
-          <motion.h3 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-xl md:text-2xl text-primary mt-3 font-semibold tracking-wide"
-          >
-            {data?.jobTitle}
-          </motion.h3>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+      <div className="relative mx-auto flex max-w-[1280px] flex-col-reverse items-center gap-12 px-6 lg:flex-row lg:justify-between lg:gap-8 lg:px-10">
+        <div className="flex w-full max-w-xl flex-col items-center text-center lg:items-start lg:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex flex-wrap justify-center md:justify-start gap-5 mt-8"
+            transition={{ duration: 0.5 }}
+            className="space-y-2"
+          >
+            <p className="text-xl md:text-2xl font-semibold text-muted-foreground tracking-wide">
+              Hi I am
+            </p>
+            <h1 className="text-2xl md:text-[28px] font-bold text-foreground/80 tracking-wide">
+              {data?.userName}
+            </h1>
+            <h2 className="text-job-gradient text-4xl sm:text-5xl md:text-[64px] font-black leading-tight tracking-wide">
+              {data?.jobTitle}
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.5 }}
+            className="mt-6 flex flex-wrap justify-center lg:justify-start gap-4"
           >
             {data?.contactAndAccounts?.map((user) => (
               <a
@@ -95,46 +99,98 @@ const Home = () => {
                 key={user.id}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:scale-110 transition-all duration-300 hover:-translate-y-1 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100"
+                className="flex size-10 items-center justify-center rounded-full border border-muted-foreground/50 transition-all duration-300 hover:border-primary hover:scale-110"
               >
                 <img
                   src={image[user.webName] ?? defaultAvatar}
                   loading="lazy"
-                  width={36}
-                  height={36}
-                  className="w-9 h-9 rounded-full shadow-md"
+                  width={22}
+                  height={22}
+                  className="size-[22px] rounded-full object-cover"
                   alt={user.webName}
                 />
               </a>
             ))}
           </motion.div>
 
-          {data?.cvUrl && (
-            <motion.a
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              href={data.cvUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-10"
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25, duration: 0.5 }}
+            className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4"
+          >
+            <Button
+              onClick={scrollToContact}
+              className="btn-primary-gradient h-12 rounded-lg px-10 text-lg font-bold text-white shadow-none hover:opacity-95"
             >
-              <Button
-                className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-2xl shadow-lg transition-all duration-300 flex items-center gap-3 font-bold hover:shadow-primary/20"
-              >
-                Download CV
-                <Download
-                  size={22}
-                  className="transition-transform duration-300 group-hover:translate-y-0.5"
-                />
-              </Button>
-            </motion.a>
+              Hire Me
+            </Button>
+            {data?.cvUrl && (
+              <a href={data.cvUrl} target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  className="h-12 rounded-lg border-2 border-muted-foreground bg-transparent px-8 text-lg font-bold text-muted-foreground hover:border-primary hover:bg-transparent hover:text-primary"
+                >
+                  Download CV
+                </Button>
+              </a>
+            )}
+          </motion.div>
+
+          {stats.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.5 }}
+              className="mt-12 flex w-full max-w-lg flex-wrap items-stretch justify-center gap-0 rounded-lg bg-card dark:bg-white/[0.04] p-5 lg:justify-start"
+            >
+              {stats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`flex min-w-[120px] flex-1 flex-col gap-2 px-4 py-1.5 ${
+                    index < stats.length - 1
+                      ? "border-r border-muted-foreground/40"
+                      : ""
+                  }`}
+                >
+                  <span className="text-xl font-extrabold text-primary tracking-wide">
+                    {stat.value}+
+                  </span>
+                  <span className="text-base font-bold text-foreground/80 tracking-wide">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
           )}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="relative flex h-[360px] w-[280px] shrink-0 items-end justify-center sm:h-[440px] sm:w-[340px] md:h-[540px] md:w-[400px] lg:h-[620px] lg:w-[460px]"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-4 left-1/2 size-[240px] -translate-x-1/2 rounded-full bg-[#ff7a00]/20 blur-3xl sm:bottom-6 sm:size-[300px] md:size-[380px] lg:bottom-8 lg:size-[460px]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 left-1/2 size-[280px] -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/25 via-primary/10 to-transparent blur-md sm:size-[340px] md:size-[420px] lg:size-[500px]"
+          />
+          <div className="relative z-10 flex h-[78%] w-[78%] items-center justify-center overflow-hidden rounded-full border-[10px] border-[#ff7a00] bg-[#ff7a00] p-2 shadow-[0_0_60px_rgba(255,122,0,0.28)] sm:h-[82%] sm:w-[82%] md:h-[84%] md:w-[84%] lg:h-[86%] lg:w-[86%]">
+            <img
+              src={data?.userImage ?? defaultAvatar}
+              loading="eager"
+              alt="Profile"
+              className="h-full w-full rounded-full object-cover object-center bg-transparent"
+            />
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
-
 
 export default Home;

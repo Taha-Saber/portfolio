@@ -115,10 +115,10 @@ const Recommendations = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+          <h2 className="text-3xl md:text-[40px] font-bold text-foreground tracking-wide">
             Recommendations
           </h2>
-          <div className="h-1.5 w-24 bg-primary mx-auto mt-4 rounded-full shadow-[0_0_15px_rgba(var(--primary),0.5)]"></div>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full" />
           <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
             What others say about their experience working with me.
           </p>
@@ -142,7 +142,7 @@ const Recommendations = () => {
                       className="h-full group relative"
                     >
                       <div className="absolute -inset-0.5 bg-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                      <div className="relative h-[320px] bg-card text-card-foreground shadow-lg rounded-2xl p-8 border border-border/40 hover:border-primary/30 transition-all duration-300 flex flex-col">
+                      <div className="relative h-[320px] section-card text-card-foreground shadow-lg rounded-2xl p-8 hover:border-primary/30 transition-all duration-300 flex flex-col">
                         <div className="flex items-center gap-4 mb-6 pb-6 border-b border-border/50">
                           <div className="bg-primary/10 p-2.5 rounded-full flex-shrink-0">
                             <User className="w-5 h-5 text-primary" />

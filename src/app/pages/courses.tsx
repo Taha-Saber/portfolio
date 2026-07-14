@@ -36,10 +36,10 @@ const Courses = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+          <h2 className="text-3xl md:text-[40px] font-bold text-foreground tracking-wide">
             Courses
           </h2>
-          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full" />
         </motion.div>
 
         <div className="relative w-full px-4 md:px-12">
@@ -58,7 +58,7 @@ const Courses = () => {
                     className="h-full group relative"
                   >
                     <div className="absolute -inset-0.5 bg-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div className="relative h-full bg-card text-card-foreground shadow-lg rounded-2xl p-8 border border-border/50 hover:border-primary/30 transition-all duration-300 flex flex-col">
+                    <div className="relative h-full section-card text-card-foreground shadow-lg rounded-3xl p-8 hover:border-primary/30 transition-all duration-300 flex flex-col">
                       <div className="flex items-center gap-4 mb-6">
                         <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-sm">
                           <GraduationCap className="w-8 h-8" />

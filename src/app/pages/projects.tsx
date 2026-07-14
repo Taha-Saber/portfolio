@@ -27,7 +27,7 @@ const Projects = () => {
     );
 
   return (
-    <section id="projects" className="px-6 md:px-12 py-12 bg-background">
+    <section id="projects" className="px-6 md:px-12 py-16 bg-background">
       <div className="max-w-[1536px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,10 +36,10 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-            Projects
+          <h2 className="text-3xl md:text-[40px] font-bold text-foreground tracking-wide">
+            Portfolio
           </h2>
-          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full" />
         </motion.div>
 
         <div className="relative w-full px-4 md:px-12">
@@ -48,7 +48,7 @@ const Projects = () => {
               {data?.projects?.map((project, index) => (
                 <CarouselItem
                   key={project.id}
-                  className="pl-6 md:basis-1/2 lg:basis-1/4"
+                  className="pl-6 md:basis-1/2 lg:basis-1/3"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -57,27 +57,23 @@ const Projects = () => {
                     transition={{ delay: index * 0.1, duration: 0.6 }}
                     className="group relative h-full"
                   >
-                    <div className="absolute -inset-0.5 bg-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div className="relative bg-card text-card-foreground shadow-lg rounded-2xl overflow-hidden flex flex-col h-full border border-border/50 hover:border-primary/30 transition-all duration-300">
-                      <div className="aspect-video overflow-hidden">
+                    <div className="relative section-card overflow-hidden flex flex-col h-full transition-all duration-300 hover:border-primary/40">
+                      <div className="aspect-square overflow-hidden bg-secondary">
                         <img
                           src={project.image}
                           loading="lazy"
                           alt={project.projectName}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
 
-                      <div className="p-6 flex flex-col flex-grow">
-                        <h3 className="text-xl font-bold text-foreground mb-4 line-clamp-1">
+                      <div className="p-4 flex items-center justify-between gap-3">
+                        <h3 className="text-base font-medium text-muted-foreground line-clamp-1">
                           {project.projectName}
                         </h3>
-
-                        <Link to={`/details/project/${project.id}`} className="mt-auto">
-                          <Button
-                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl py-6 shadow-md transition-all active:scale-95"
-                          >
-                            View Project
+                        <Link to={`/details/project/${project.id}`}>
+                          <Button className="btn-primary-gradient h-9 rounded-lg px-4 text-sm font-bold text-white shadow-none hover:opacity-95">
+                            View
                           </Button>
                         </Link>
                       </div>

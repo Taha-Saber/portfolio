@@ -25,7 +25,7 @@ export function ThemeToggler({ className }: { className?: string }) {
     <div className={cn(className)}>
       <Toggle
         variant="ghost"
-        className="group w-9 h-9 border border-blue-500 rounded-full"
+        className="group w-9 h-9 border border-primary/60 rounded-full"
         onPressedChange={handleSmoothThemeChange}
         aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
         pressed={theme === "dark"}

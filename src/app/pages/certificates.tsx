@@ -40,10 +40,10 @@ const Certificates = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+            <h2 className="text-3xl md:text-[40px] font-bold text-foreground tracking-wide">
               Certificates
             </h2>
-            <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+            <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full" />
           </motion.div>
         )}
 
@@ -63,7 +63,7 @@ const Certificates = () => {
                     className="group relative h-full"
                   >
                     <div className="absolute -inset-0.5 bg-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                    <div className="relative bg-card text-card-foreground shadow-lg rounded-2xl overflow-hidden flex flex-col h-full border border-border/50 hover:border-primary/30 transition-all duration-300">
+                    <div className="relative section-card text-card-foreground shadow-lg rounded-2xl overflow-hidden flex flex-col h-full hover:border-primary/30 transition-all duration-300">
                       <div className="aspect-[4/3] overflow-hidden bg-muted">
                         <img
                           src={certificate.imageUrl}

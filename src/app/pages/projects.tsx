@@ -12,74 +12,86 @@ import { Link } from "react-router-dom";
 
 const Projects = () => {
   const { isLoading, error, data } = useUserdata();
-  if (isLoading) return <p className=" bg-secondary text-center text-2xl font-semibold
-   text-[#25c1dd] animate-pulse">Loading...</p>;
-  if (error) return <p className="text-center text-2xl font-semibold  animate-pulse
-   text-red-500 bg-secondary">Error happened!</p>;
+  if (isLoading)
+    return (
+      <div className="flex h-48 items-center justify-center bg-background">
+        <p className="animate-pulse text-xl font-semibold text-primary">Loading...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex h-48 items-center justify-center bg-background">
+        <p className="animate-pulse text-xl font-semibold text-destructive">Error happened!</p>
+      </div>
+    );
 
   return (
-    <div id="projects" className=" bg-secondary py-20 ">
-      <h1 className="text-3xl font-semibold text-[#25c1dd] w-fit mx-auto pt-10 pb-1 tracking-wide drop-shadow-md">
-        Projects
-      </h1>
+    <section id="projects" className="px-6 md:px-12 py-12 bg-background">
+      <div className="max-w-[1536px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+            Projects
+          </h2>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+        </motion.div>
 
-      <div className="mt-10 px-4">
-        <div className="relative w-full px-8">
+        <div className="relative w-full px-4 md:px-12">
           <Carousel className="w-full">
-            <CarouselPrevious />
-            <CarouselContent className="-ml-4">
+            <CarouselContent className="-ml-6">
               {data?.projects?.map((project, index) => (
                 <CarouselItem
                   key={project.id}
-                  className="pl-4 md:basis-1/2 lg:basis-1/4"
+                  className="pl-6 md:basis-1/2 lg:basis-1/4"
                 >
                   <motion.div
-                    className="rounded-2xl shadow-md overflow-hidden flex flex-col"
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{
-                      delay: index * 0.1,
-                      duration: 0.6,
-                      ease: "easeOut",
-                    }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                    className="group relative h-full"
                   >
-                    {/* تحسين الصورة */}
-                    <img
-                      src={project.image}
-                      loading="lazy"
-                      width={320}
-                      height={192}
-                      alt={`Project ${project.id}`}
-                      className="w-full aspect-video object-cover"
-                    />
+                    <div className="absolute -inset-0.5 bg-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div className="relative bg-card text-card-foreground shadow-lg rounded-2xl overflow-hidden flex flex-col h-full border border-border/50 hover:border-primary/30 transition-all duration-300">
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={project.image}
+                          loading="lazy"
+                          alt={project.projectName}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
 
-                    <div className="p-4 mt-auto">
-                      <h3 className="text-[#25c1dd] font-semibold mb-4 text-lg">
-                        {project.projectName}
-                      </h3>
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="text-xl font-bold text-foreground mb-4 line-clamp-1">
+                          {project.projectName}
+                        </h3>
 
-                      <Link to={`/details/project/${project.id}`}>
-
-                        <Button
-                          className="bg-[#006a6a] text-gray-300 w-full px-6 py-2 rounded-xl shadow-lg 
-                          transition duration-300 flex items-center gap-2 border text-bolder
-                          border-transparent hover:border-[#25c1dd] hover:bg-gray-300
-                           hover:text-[#25c1dd] mb-2"
-                        >
-                          More Details
-                        </Button>
-                      </Link>
+                        <Link to={`/details/project/${project.id}`} className="mt-auto">
+                          <Button
+                            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-xl py-6 shadow-md transition-all active:scale-95"
+                          >
+                            View Project
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
                   </motion.div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselNext />
+            <CarouselPrevious className="md:flex -left-4 bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary hover:text-primary-foreground" />
+            <CarouselNext className="md:flex -right-4 bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary hover:text-primary-foreground" />
           </Carousel>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

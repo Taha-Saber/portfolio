@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/shared/components/firebase";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ const Contact = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 6000); 
+    }, 1500); 
 
     return () => clearTimeout(timer);
   }, []);
@@ -35,10 +36,24 @@ const Contact = () => {
         date: new Date().toISOString(),
       };
 
-      const userDocRef = doc(db, "users", "Abdallah_Alqiran");
+      const userDocRef = doc(db, "users", import.meta.env.VITE_USER_ID);
       await updateDoc(userDocRef, {
         contactMessage: arrayUnion(newMessage),
       });
+
+      const templateParams = {
+        name: "Portfolio Contact",
+        email: email,
+        message: message,
+        time: new Date().toLocaleString(),
+      };
+
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      );
 
       alert("Message sent successfully! ✅");
       setEmail("");
@@ -53,74 +68,83 @@ const Contact = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-secondary">
-        <p className="text-2xl font-semibold text-[#25c1dd] animate-pulse">Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-2xl font-semibold text-primary animate-pulse">Loading...</p>
       </div>
     );
   }
 
   return (
-    <section id="contact" className=" bg-secondary  ">
-      <h1 className="text-3xl font-semibold text-[#25c1dd] w-fit mx-auto
-       drop-shadow-md md:mb-10 ">
-        Contact Me
-      </h1>
-      <div className="container mx-auto px-4  ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section id="contact" className="px-6 md:px-12 bg-background pt-16 pb-8">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+            Get in Touch
+          </h2>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-            className="flex justify-center"
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="hidden lg:block relative"
           >
+            <div className="absolute -inset-4 bg-primary/10 rounded-full blur-3xl"></div>
             <img
               src={contactimg}
               loading="lazy"
-              alt="Contact Illustration"
-              width={700}
-              height={700}
-              className="w-150 md:block hidden object-cover p-0 "
+              alt="Contact"
+              className="relative w-full max-w-lg mx-auto rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
             />
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.3,
-              duration: 0.99,
-              ease: "easeOut",
-            }}
-            className="w-full h-full max-w-xl mx-auto px-8 py-10 border border-[#006a6a] 
-            rounded-2xl shadow-lg bg-white dark:bg-[#1e1e1e] space-y-8 flex flex-col justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="relative group"
           >
-            <h2 className="text-xl font-semibold text-[#25c1dd] text-center">
-              Get in Touch
-            </h2>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
+            <div className="relative bg-card text-card-foreground shadow-2xl rounded-3xl p-8 md:p-12 border border-border/50 backdrop-blur-sm space-y-8">
+              <div className="space-y-4">
+                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground ml-1">Email Address</label>
+                <Input
+                  type="email"
+                  placeholder="name@example.com"
+                  className="w-full bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/20 rounded-xl px-6 py-7 text-lg font-medium transition-all"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                />
+              </div>
 
-            <Input
-              type="email"
-              placeholder="Your Email"
-              className="w-full text-md border border-[#006a6a]
-              focus:outline-none focus:ring-2 focus:ring-[#25c1dd] rounded-lg px-6 py-5 font-semibold"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
+              <div className="space-y-4">
+                <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground ml-1">Message</label>
+                <Textarea
+                  placeholder="How can I help you?"
+                  className="w-full bg-secondary/50 border-border/50 focus:border-primary focus:ring-primary/20 rounded-xl px-6 py-5 h-48 resize-none text-lg font-medium transition-all"
+                  onChange={(e) => setMessage(e.target.value)}
+                  value={message}
+                />
+              </div>
 
-            <Textarea
-              placeholder="Type your message here."
-              className="w-full text-md border border-[#006a6a] focus:outline-none focus:ring-2 focus:ring-[#25c1dd] rounded-lg px-6 py-5 h-48 resize-none font-semibold"
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-            />
-
-            <Button
-              className="w-full py-4 text-lg bg-[#25c1dd] text-white font-semibold rounded-full hover:bg-white hover:text-[#006a6a] border-2 border-transparent hover:border-[#006a6a] transition-all duration-300"
-              onClick={handleSubmit}
-              disabled={sending}
-            >
-              {sending ? "Sending..." : "Send Message"}
-            </Button>
+              <Button
+                className="w-full py-8 text-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-2xl shadow-xl transition-all duration-300 active:scale-[0.98]"
+                onClick={handleSubmit}
+                disabled={sending}
+              >
+                {sending ? "Sending..." : "Send Message"}
+              </Button>
+            </div>
           </motion.div>
         </div>
       </div>

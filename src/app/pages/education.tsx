@@ -3,44 +3,73 @@ import { motion } from "framer-motion";
 
 const Education = () => {
   const { isLoading, error, data } = useUserdata();
-  if (isLoading) return <p className=" bg-secondary text-center text-2xl font-semibold
-   text-[#25c1dd] animate-pulse">Loading...</p>;
-  if (error) return <p className="text-center text-2xl font-semibold  animate-pulse
-   text-red-500 bg-secondary">Error happened!</p>;
+  
+  if (isLoading)
+    return (
+      <div className="flex h-48 items-center justify-center bg-background">
+        <p className="animate-pulse text-xl font-semibold text-primary">Loading...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex h-48 items-center justify-center bg-background">
+        <p className="animate-pulse text-xl font-semibold text-destructive">Error happened!</p>
+      </div>
+    );
 
   return (
-    <section className="  px-6 bg-secondary pb-20 ">
-      <div className="flex items-center justify-center mb-10">
-        <h1 className="text-3xl font-semibold text-[#25c1dd] tracking-wide drop-shadow-sm">
-          Education
-        </h1>
-      </div>
+    <section id="education" className="px-6 md:px-12 py-12 bg-background">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+            Education
+          </h2>
+          <div className="h-1 w-20 bg-primary mx-auto mt-4 rounded-full"></div>
+        </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
-      >
-        {data?.education?.length === 0 ? (
-          <p className="text-center text-gray-500 dark:text-gray-400 text-lg">
+        <div className="space-y-6">
+          {(data?.education ?? []).map((edu, index) => (
+            <motion.div
+              key={edu.id || index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className="group relative"
+            >
+              <div className="absolute -inset-0.5 bg-primary/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative bg-card text-card-foreground shadow-lg rounded-2xl p-6 md:p-8 border border-border/50 hover:border-primary/30 transition-all duration-300">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-primary transition-colors">
+                      {edu.university}
+                    </h3>
+                    <h4 className="text-lg font-semibold text-foreground/80 mt-1">
+                      {edu.major}
+                    </h4>
+                  </div>
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-secondary text-secondary-foreground border border-border">
+                    {edu.date}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {data?.education?.length === 0 && (
+          <p className="text-center text-muted-foreground italic py-10">
             No education data found.
           </p>
-        ) : (
-          <div className="max-w-5xl mx-auto space-y-6">
-            {(data?.education ?? []).map(({ id, university, date, major }) => (
-              <div
-                key={id}
-                className="p-6 rounded-xl border
-                 border-[#25c1dd]   bg-white dark:bg-[#1e1e1e]  shadow-md transition duration-300 hover:shadow-lg"
-              >
-                <h2 className="text-xl font-bold text-[#006a6a]">{university}</h2>
-                <p className="text-lg mt-2 dark:text-gray-300 font-medium">{date}</p>
-                <p className="mt-3 text-base dark:text-gray-300 font-semibold">{major}</p>
-              </div>
-            ))}
-          </div>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 };

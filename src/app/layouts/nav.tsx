@@ -1,5 +1,6 @@
 import { useUserdata } from "@/shared/components/firestore";
 import { ThemeToggler } from "@/shared/components/theme-toggler";
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 const Nav = () => {
@@ -17,10 +18,10 @@ const Nav = () => {
     }
   };
 
-  const sections = ["home", "about", "skills", "projects", "courses", "contact"];
+  const sections = ["home", "projects", "skills", "courses", "contact"];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-[#2e2d2d] shadow-sm overflow-x-hidden">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5 dark:border-white/10 shadow-lg overflow-x-hidden">
       <div className="w-full px-2 sm:px-4 md:px-6">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -42,7 +43,7 @@ const Nav = () => {
           </div>
 
           <div className="flex flex-1 items-center justify-center sm:justify-start">
-            <div className="text-[#25c1dd] text-md md:text-base font-medium whitespace-nowrap">
+            <div className="text-primary text-lg md:text-xl font-bold tracking-tight whitespace-nowrap">
               {data?.userName || "..."}
             </div>
           </div>
@@ -54,12 +55,21 @@ const Nav = () => {
                   key={section}
                   href={`#${section}`}
                   onClick={(e) => handleSmoothScroll(e, section)}
-                  className={`capitalize px-2 md:px-3 py-2 text-sm md:text-base font-medium transition-all duration-300 border-b-2
+                  className={`capitalize px-3 md:px-4 py-2 text-sm md:text-base font-semibold transition-all duration-300 relative group/nav
                     ${activeSection === section
-                      ? "border-[#006a6a] text-[#006a6a]"
-                      : "border-transparent hover:border-[#006a6a] hover:text-[#006a6a]"}`}
+                      ? "text-primary"
+                      : "text-foreground/70 hover:text-primary"}`}
                 >
                   {section}
+                  {activeSection === section && (
+                    <motion.div 
+                      layoutId="nav-underline"
+                      className="absolute bottom-0 left-0 w-full h-0.5 bg-primary shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                    />
+                  )}
+                  {activeSection !== section && (
+                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary/40 transition-all duration-300 group-hover/nav:w-full" />
+                  )}
                 </a>
               ))}
             </div>

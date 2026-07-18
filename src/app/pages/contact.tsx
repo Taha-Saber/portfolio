@@ -101,12 +101,12 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="hidden lg:block relative"
           >
-            <div className="absolute -inset-4 bg-primary/10 rounded-full blur-3xl" />
+            <div className="absolute -inset-4" />
             <img
               src={contactimg}
               loading="lazy"
               alt="Contact"
-              className="relative w-full max-w-md mx-auto rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
+              className="relative w-full max-w-md mx-auto  grayscale hover:grayscale-0 transition-all duration-700"
             />
           </motion.div>
 
@@ -132,9 +132,9 @@ const Contact = () => {
               value={message}
             />
 
-            <div className="flex justify-end">
+            <div className="flex mx-auto ">
               <Button
-                className="min-w-[127px] h-12 rounded-lg border-2 border-foreground/80 bg-transparent text-foreground font-bold hover:border-primary hover:text-primary hover:bg-transparent"
+                className="min-w-[127px] h-12 rounded-lg border-2 bg-primary text-white font-bold hover:border-primary hover:text-primary hover:bg-transparent"
                 onClick={handleSubmit}
                 disabled={sending}
               >

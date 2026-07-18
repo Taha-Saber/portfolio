@@ -65,7 +65,7 @@ const Home = () => {
         src={heroGlow}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-0 top-24 w-[min(100%,640px)] opacity-70 md:opacity-90"
+        className="pointer-events-none absolute left-0 top-24 w-[min(100%,640px)]"
       />
 
       <div className="relative mx-auto flex max-w-[1280px] flex-col-reverse items-center gap-12 px-6 lg:flex-row lg:justify-between lg:gap-8 lg:px-10">
@@ -165,29 +165,29 @@ const Home = () => {
           )}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative flex h-[360px] w-[280px] shrink-0 items-end justify-center sm:h-[440px] sm:w-[340px] md:h-[540px] md:w-[400px] lg:h-[620px] lg:w-[460px]"
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute bottom-4 left-1/2 size-[240px] -translate-x-1/2 rounded-full bg-[#ff7a00]/20 blur-3xl sm:bottom-6 sm:size-[300px] md:size-[380px] lg:bottom-8 lg:size-[460px]"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute bottom-0 left-1/2 size-[280px] -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/25 via-primary/10 to-transparent blur-md sm:size-[340px] md:size-[420px] lg:size-[500px]"
-          />
-          <div className="relative z-10 flex h-[78%] w-[78%] items-center justify-center overflow-hidden rounded-full border-[10px] border-[#ff7a00] bg-[#ff7a00] p-2 shadow-[0_0_60px_rgba(255,122,0,0.28)] sm:h-[82%] sm:w-[82%] md:h-[84%] md:w-[84%] lg:h-[86%] lg:w-[86%]">
-            <img
-              src={data?.userImage ?? defaultAvatar}
-              loading="eager"
-              alt="Profile"
-              className="h-full w-full rounded-full object-cover object-center bg-transparent"
-            />
-          </div>
-        </motion.div>
+   <motion.div
+  initial={{ opacity: 0, scale: 0.92 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.7, ease: "easeOut" }}
+  className="relative flex h-[360px] w-[280px] shrink-0 items-end justify-center sm:h-[440px] sm:w-[340px] md:h-[540px] md:w-[400px] lg:h-[620px] lg:w-[460px]"
+>
+  <div
+    aria-hidden
+    className="absolute inset-0 flex items-center justify-center"
+  >
+    <div className="h-[72%] w-[72%] rounded-full bg-primary/20 blur-2xl" />
+  </div>
+
+  {/* Profile Image */}
+  <div className="relative z-10 flex h-[78%] w-[78%] items-center justify-center overflow-hidden rounded-full sm:h-[82%] sm:w-[82%] md:h-[84%] md:w-[84%] lg:h-[86%] lg:w-[86%]">
+    <img
+      src={data?.userImage ?? defaultAvatar}
+      loading="eager"
+      alt="Profile"
+      className="h-full w-full rounded-full object-cover"
+    />
+  </div>
+</motion.div>
       </div>
     </section>
   );

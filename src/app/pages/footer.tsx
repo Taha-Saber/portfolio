@@ -1,4 +1,4 @@
-import { useUserdata } from "@/shared/components/firestore";
+import { useUserdata } from "@/shared/components/firestore.tsx";
 import { Mail } from "lucide-react";
 import img3 from "../images/download (1).png";
 import img2 from "../images/download (2).jpeg";
@@ -40,11 +40,11 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full bg-[#0b0b0b] pt-12 pb-6 border-t border-white/5">
+    <footer className="w-full  pt-12 pb-6 border-t border-white/7">
       <div className="max-w-[1280px] mx-auto px-6 flex flex-col items-center gap-8">
-        <p className="font-logo text-logo-gradient text-2xl font-bold tracking-wide">
+        {/* <p className="font-logo text-logo-gradient text-2xl font-bold tracking-wide">
           {data?.userName?.split(" ")[0] || "LOGO"}
-        </p>
+        </p> */}
 
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
           {sections.map((section) => (
@@ -108,3 +108,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

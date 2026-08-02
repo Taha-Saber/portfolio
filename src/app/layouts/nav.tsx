@@ -26,7 +26,7 @@ const Nav = () => {
     { id: "about", label: "About me" },
     { id: "projects", label: "projects" },
     { id: "skills", label: "Skills" },
-    { id: "courses", label: "courses" },
+    // { id: "courses", label: "courses" },
     { id: "contact", label: "Contact me" },
   ];
 

@@ -72,7 +72,7 @@ const Nav = () => {
             <a
               href="#home"
               onClick={(e) => handleSmoothScroll(e, "home")}
-              className="font-logo text-logo-gradient text-2xl font-bold tracking-wide whitespace-nowrap"
+              className="font-logo text-logo-gradient text-xl font-bold tracking-wide whitespace-nowrap"
             >
               {data?.userName?.split(" ")[0] || "LOGO"}
             </a>

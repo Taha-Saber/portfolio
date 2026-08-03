@@ -48,7 +48,7 @@ const Projects = () => {
               {data?.projects?.map((project, index) => (
                 <CarouselItem
                   key={project.id}
-                  className="pl-6 md:basis-1/2 lg:basis-1/3"
+                  className="pl-6 sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ const Projects = () => {
                     className="group relative h-full"
                   >
                     <div className="relative section-card overflow-hidden flex flex-col h-full transition-all duration-300 hover:border-primary/40">
-                      <div className="aspect-square overflow-hidden bg-secondary">
+                       <div className="aspect-square overflow-hidden bg-secondary">
                         <img
                           src={project.image}
                           loading="lazy"
@@ -67,12 +67,12 @@ const Projects = () => {
                         />
                       </div>
 
-                      <div className="p-4 flex items-center justify-between gap-3">
-                        <h3 className="text-base font-medium text-muted-foreground line-clamp-1">
+                      <div className="p-3.5 flex items-center justify-between gap-2">
+                        <h3 className="text-sm font-semibold text-muted-foreground line-clamp-1">
                           {project.projectName}
                         </h3>
-                        <Link to={`/details/project/${project.id}`}>
-                          <Button className="btn-primary-gradient h-9 rounded-lg px-4 text-sm font-bold text-white shadow-none hover:opacity-95">
+                        <Link to={`/details/project/${project.id}`} className="shrink-0">
+                          <Button className="btn-primary-gradient h-8 rounded-lg px-3.5 text-xs font-bold text-white shadow-none hover:opacity-95">
                             View
                           </Button>
                         </Link>

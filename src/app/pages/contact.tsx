@@ -132,7 +132,7 @@ const Contact = () => {
               value={message}
             />
 
-            <div className="flex mx-auto ">
+            <div className="flex justify-center">
               <Button
                 className="min-w-[127px] h-12 rounded-lg border-2 bg-primary text-white font-bold hover:border-primary hover:text-primary hover:bg-transparent"
                 onClick={handleSubmit}

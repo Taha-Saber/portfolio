@@ -50,24 +50,18 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative shrink-0 w-full max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] aspect-[3/4] flex items-end justify-center"
+            className="relative shrink-0 w-full max-w-[300px] sm:max-w-[360px] lg:max-w-[420px] aspect-square flex items-center justify-center mx-auto lg:mx-0"
           >
-            {/* Arch sits behind the transparent cutout */}
-            <div
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 flex items-end justify-center"
-            >
-              <div className="w-[88%] h-[78%] rounded-t-[260px] rounded-b-3xl bg-[#111111]" />
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[72%] h-[72%] rounded-full bg-[#ff7a00]/10 blur-3xl" />
-            </div>
+            {/* Glow effect */}
+            <div className="absolute inset-0 rounded-full bg-[#ff7a00]/10 blur-3xl" />
 
-            <div className="relative z-10 flex h-[86%] w-[86%] items-center justify-center overflow-hidden rounded-b-3xl rounded-t-[220px]">
-              <div className="absolute inset-0 left-1/2 -translate-x-1/2 w-[92%] h-[92%] rounded-full border-8 border-[#ff7a00] bg-transparent flex items-center justify-center shadow-[0_0_60px_rgba(255,122,0,0.18)]" />
+            {/* Profile Image Wrapper */}
+            <div className="relative z-10 flex h-4/5 w-4/5 items-center justify-center overflow-hidden rounded-full border-4 border-[#ff7a00]/30 shadow-[0_0_50px_rgba(255,122,0,0.15)]">
               <img
                 src={data?.userImage ?? defaultAvatar}
                 alt={data?.userName ?? "About"}
                 loading="lazy"
-                className="relative z-20 mx-auto h-full w-full rounded-full object-cover object-center"
+                className="h-full w-full object-cover object-center"
               />
             </div>
           </motion.div>

@@ -165,29 +165,29 @@ const Home = () => {
           )}
         </div>
 
-   <motion.div
-  initial={{ opacity: 0, scale: 0.92 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 0.7, ease: "easeOut" }}
-  className="relative flex h-[360px] w-[280px] shrink-0 items-end justify-center sm:h-[440px] sm:w-[340px] md:h-[540px] md:w-[400px] lg:h-[620px] lg:w-[460px]"
->
-  <div
-    aria-hidden
-    className="absolute inset-0 flex items-center justify-center"
-  >
-    <div className="h-[72%] w-[72%] rounded-full bg-primary/20 blur-2xl" />
-  </div>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="relative flex h-[300px] w-[300px] shrink-0 items-center justify-center sm:h-[360px] sm:w-[360px] md:h-[420px] md:w-[420px] lg:h-[480px] lg:w-[480px]"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 flex items-center justify-center"
+      >
+        <div className="h-[80%] w-[80%] rounded-full bg-primary/20 blur-3xl" />
+      </div>
 
-  {/* Profile Image */}
-  <div className="relative z-10 flex h-[78%] w-[78%] items-center justify-center overflow-hidden rounded-full sm:h-[82%] sm:w-[82%] md:h-[84%] md:w-[84%] lg:h-[86%] lg:w-[86%]">
-    <img
-      src={data?.userImage ?? defaultAvatar}
-      loading="eager"
-      alt="Profile"
-      className="h-full w-full rounded-full object-cover"
-    />
-  </div>
-</motion.div>
+      {/* Profile Image */}
+      <div className="relative z-10 flex h-4/5 w-4/5 items-center justify-center overflow-hidden rounded-full border-4 border-primary/20 shadow-[0_0_50px_rgba(253,111,0,0.15)]">
+        <img
+          src={data?.userImage ?? defaultAvatar}
+          loading="eager"
+          alt="Profile"
+          className="h-full w-full object-cover"
+        />
+      </div>
+    </motion.div>
       </div>
     </section>
   );
